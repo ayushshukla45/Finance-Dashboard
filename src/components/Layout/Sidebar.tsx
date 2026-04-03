@@ -20,33 +20,34 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isOpe
           <h1 style={{ fontSize: '1.5rem', letterSpacing: '-1px', textShadow: '0 0 8px rgba(255,255,255,0.2)' }}>FinDash</h1>
         </div>
 
-        <nav className="sidebar-nav" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
+        <nav className="sidebar-nav" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1 }}>
           <NavItem 
-            icon={<LayoutDashboard size={20} />} 
+            icon={<LayoutDashboard size={22} />} 
             label="Overview" 
             active={activeTab === 'overview'} 
             onClick={() => { setActiveTab('overview'); onClose?.(); }}
           />
           <NavItem 
-            icon={<PieChart size={20} />} 
+            icon={<PieChart size={22} />} 
             label="Transactions" 
             active={activeTab === 'transactions'} 
             onClick={() => { setActiveTab('transactions'); onClose?.(); }}
           />
           <NavItem 
-            icon={<Info size={20} />} 
+            icon={<Info size={22} />} 
             label="Insights" 
             active={activeTab === 'insights'}
             onClick={() => { setActiveTab('insights'); onClose?.(); }}
           />
           
-          <div className="sidebar-header" style={{ marginTop: 'auto' }}></div>
-          <NavItem 
-            icon={<Settings size={20} />} 
-            label="Settings" 
-            active={activeTab === 'settings'}
-            onClick={() => { setActiveTab('settings'); onClose?.(); }}
-          />
+          <div style={{ marginTop: 'auto', paddingBottom: '1rem' }}>
+            <NavItem 
+              icon={<Settings size={22} />} 
+              label="Settings" 
+              active={activeTab === 'settings'}
+              onClick={() => { setActiveTab('settings'); onClose?.(); }}
+            />
+          </div>
         </nav>
       </aside>
     </>
@@ -57,24 +58,35 @@ const NavItem = ({ icon, label, active = false, onClick }: { icon: React.ReactNo
   return (
     <button 
       onClick={onClick}
-      className={`flex-center hoverable nav-item-btn ${active ? 'active-nav' : ''}`}
+      className={`hoverable nav-item-btn ${active ? 'active-nav' : ''}`}
       style={{ 
+        display: 'flex',
+        alignItems: 'center',
         width: '100%',
-        justifyContent: 'flex-start', 
-        gap: '1rem', 
-        padding: '1rem 1.25rem', 
-        borderRadius: '8px',
+        gap: '0.75rem', 
+        padding: '0.75rem 1rem', 
+        borderRadius: '12px',
         color: active ? '#000' : 'var(--text-secondary)',
         background: active ? 'var(--primary-accent)' : 'transparent',
         fontSize: '1rem',
         fontWeight: active ? 600 : 500,
-        boxShadow: active ? '0 0 16px rgba(0, 229, 255, 0.4)' : 'none',
-        transition: 'all 0.2s ease',
+        boxShadow: active ? '0 8px 16px rgba(0, 229, 255, 0.25)' : 'none',
+        transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
         border: '1px solid transparent',
+        textAlign: 'left'
       }}
     >
-      {icon}
-      <span className="nav-item-label">{label}</span>
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        width: '32px', 
+        height: '32px',
+        flexShrink: 0 
+      }}>
+        {icon}
+      </div>
+      <span className="nav-item-label" style={{ opacity: active ? 1 : 0.85 }}>{label}</span>
     </button>
   );
 };

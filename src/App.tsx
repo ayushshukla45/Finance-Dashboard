@@ -44,9 +44,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 }
 
 export default function App() {
-  console.log("App Rendering Started");
-  console.log('App successfully initialized');
-
   return (
     <ErrorBoundary>
       <FinanceProvider>
