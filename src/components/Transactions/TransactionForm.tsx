@@ -1,3 +1,7 @@
+/**
+ * Transaction Creation / Edit - Modal-based data entry form.
+ * Handles validation and persistence of financial records via global context.
+ */
 import React, { useState, useEffect } from 'react';
 import { useFinance } from '../../hooks/useFinance';
 import { X } from 'lucide-react';

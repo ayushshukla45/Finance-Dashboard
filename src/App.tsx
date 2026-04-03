@@ -1,3 +1,7 @@
+/**
+ * Application Entry - FinDash Financial Management Dashboard.
+ * Orchestrates the global context, error boundaries, and root layout orchestration.
+ */
 import React, { Component } from 'react';
 import type { ReactNode } from 'react';
 import { FinanceProvider } from './context/FinanceContext';

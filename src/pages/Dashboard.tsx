@@ -14,15 +14,11 @@ import { SkeletonLoader } from '../components/UI/SkeletonLoader';
 import { Plus } from 'lucide-react';
 
 /**
- * Application Entry / Layout Orchestrator.
- * 
- * Architecture Note: Using Context API for global RBAC and transaction state to avoid prop-drilling.
- * The activeTab state is deliberately kept local here as it strictly governs View presentation,
- * preventing unnecessary global re-renders. 
+ * Main Layout Orchestrator - Manages the high-level coordination of dashboard views.
+ * Controls sidebar visibility, tab-based routing, and transaction editing flows.
  */
 export const Dashboard: React.FC = () => {
-  const { role, transactions } = useFinance();
-  const [activeTab, setActiveTab] = useState(() => localStorage.getItem('activeTab') || 'overview');
+  const { role, transactions, activeTab, setActiveTab } = useFinance();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingTx, setEditingTx] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -31,7 +27,7 @@ export const Dashboard: React.FC = () => {
   if (!transactions || transactions.length === 0) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', fontSize: '1.25rem', color: 'var(--primary-accent)', background: 'var(--bg-color)', fontFamily: 'JetBrains Mono' }}>
-        {'>'} ENCRYPTING ROOT DATA...
+        {'>'} INITIALIZING ROOT SYSTEM...
       </div>
     );
   }
@@ -45,10 +41,9 @@ export const Dashboard: React.FC = () => {
     if (tab === activeTab) return;
     setIsTransitioning(true);
     setActiveTab(tab);
-    localStorage.setItem('activeTab', tab);
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 400); // 400ms loading state to simulate real data fetching API proxy
+    }, 400); 
   };
 
   const renderTabContent = () => {

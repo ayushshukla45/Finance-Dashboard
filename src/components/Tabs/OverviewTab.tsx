@@ -1,3 +1,7 @@
+/**
+ * Dashboard Landing - High-level financial summary and trend visualization.
+ * Integrates SummaryCards, ChartSection, and Insights into a unified view.
+ */
 import React from 'react';
 import { SummaryCards } from '../Dashboard/SummaryCards';
 import { ChartSection } from '../Dashboard/ChartSection';

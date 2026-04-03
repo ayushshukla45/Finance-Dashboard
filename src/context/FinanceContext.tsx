@@ -1,7 +1,6 @@
 /**
  * Global Finance Context Provider.
- * Using Context API for global RBAC (Role-Based Access Control) and transaction state 
- * to avoid prop-drilling down the complex dashboard hierarchy.
+ * Using Context API for global RBAC, transaction state, and view persistence.
  * State is synchronized with localStorage to ensure pure data persistence across user sessions.
  */
 import React, { createContext, useReducer, useEffect } from 'react';
@@ -17,14 +16,13 @@ interface FinanceContextProps extends FinanceState {
   setRole: (role: Role) => void;
   toggleTheme: () => void;
   shuffleData: () => void;
+  setActiveTab: (tab: string) => void;
 }
 
 export const FinanceContext = createContext<FinanceContextProps | undefined>(undefined);
 
 const financeReducer = (state: FinanceState, action: FinanceAction): FinanceState => {
   switch (action.type) {
-    case 'LOAD_DATA':
-      return { ...state, ...action.payload };
     case 'ADD_TRANSACTION':
       return { ...state, transactions: [action.payload, ...state.transactions] };
     case 'EDIT_TRANSACTION':
@@ -47,6 +45,8 @@ const financeReducer = (state: FinanceState, action: FinanceAction): FinanceStat
       const shuffled = [...state.transactions].sort(() => Math.random() - 0.5);
       return { ...state, transactions: shuffled };
     }
+    case 'SET_ACTIVE_TAB':
+      return { ...state, activeTab: action.payload };
     default:
       return state;
   }
@@ -60,7 +60,8 @@ const getInitialState = (): FinanceState => {
       return {
         transactions: (parsed && Array.isArray(parsed.transactions)) ? parsed.transactions : mockTransactions,
         role: (parsed && parsed.role) ? parsed.role : initialRole,
-        theme: (parsed && parsed.theme) ? parsed.theme : initialTheme
+        theme: (parsed && parsed.theme) ? parsed.theme : initialTheme,
+        activeTab: (parsed && parsed.activeTab) ? parsed.activeTab : 'overview'
       };
     }
   } catch (e) {
@@ -71,6 +72,7 @@ const getInitialState = (): FinanceState => {
     transactions: mockTransactions,
     role: initialRole as Role,
     theme: initialTheme as Theme,
+    activeTab: 'overview'
   };
 };
 
@@ -82,10 +84,11 @@ export const FinanceProvider: React.FC<{ children: ReactNode }> = ({ children })
       localStorage.setItem('finance_data', JSON.stringify({
         transactions: state.transactions,
         role: state.role,
-        theme: state.theme
+        theme: state.theme,
+        activeTab: state.activeTab
       }));
     } catch(err) {
-      console.warn('LocalStorage limit exceeded or unavailable.');
+      // Failed to save state to localStorage
     }
     
     // Apply theme to document
@@ -104,6 +107,7 @@ export const FinanceProvider: React.FC<{ children: ReactNode }> = ({ children })
   const setRole = (role: Role) => dispatch({ type: 'SET_ROLE', payload: role });
   const toggleTheme = () => dispatch({ type: 'TOGGLE_THEME' });
   const shuffleData = () => dispatch({ type: 'SHUFFLE_DATA' });
+  const setActiveTab = (tab: string) => dispatch({ type: 'SET_ACTIVE_TAB', payload: tab });
 
   return (
     <FinanceContext.Provider
@@ -115,6 +119,7 @@ export const FinanceProvider: React.FC<{ children: ReactNode }> = ({ children })
         setRole,
         toggleTheme,
         shuffleData,
+        setActiveTab,
       }}
     >
       {children}

@@ -2,6 +2,10 @@ import React, { useMemo } from 'react';
 import { useFinance } from '../../hooks/useFinance';
 import { TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
 
+/**
+ * Budget Summary View - Displays critical KPIs (Balance, Income, Expenses).
+ * Features real-time calculation and responsive grid/flex layouts.
+ */
 export const SummaryCards: React.FC = () => {
   const { transactions } = useFinance();
 
@@ -45,7 +49,7 @@ export const SummaryCards: React.FC = () => {
   ];
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+    <div className="summary-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
       {cards.map((card, idx) => (
         <div key={idx} className="glass-panel animate-fade-in hoverable" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', animationDelay: `${idx * 0.1}s` }}>
           <div className="flex-between">

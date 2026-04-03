@@ -1,3 +1,7 @@
+/**
+ * Analytics View - Performs deep analysis of financial transaction history.
+ * Computes savings rates, high-expense categories, and monthly predictions.
+ */
 import React, { useMemo } from 'react';
 import { useFinance } from '../../hooks/useFinance';
 import { ShieldAlert, TrendingUp, AlertTriangle, Lightbulb } from 'lucide-react';

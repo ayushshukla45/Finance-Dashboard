@@ -1,3 +1,7 @@
+/**
+ * Profile & System Settings - Handles role management (RBAC), data synchronization, 
+ * and user profile personalization.
+ */
 import React, { useState } from 'react';
 import { useFinance } from '../../hooks/useFinance';
 import { User, Shield, Terminal, Mail, Camera, Loader2, CheckCircle2 } from 'lucide-react';

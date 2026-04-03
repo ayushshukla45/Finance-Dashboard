@@ -8,11 +8,15 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
+/**
+ * Sidebar Navigation Component - Orchestrates application routing and tab-level access.
+ * Handles responsive menu states and active tab highlighting. 
+ */
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isOpen, onClose }) => {
   return (
     <>
       <div className={`sidebar-overlay ${isOpen ? 'open' : ''}`} onClick={onClose}></div>
-      <aside className={`glass-panel app-sidebar ${isOpen ? 'open' : ''}`} style={{ margin: '2rem 0 2rem 2rem', padding: '2rem 1rem', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 4rem)', position: 'sticky', top: '2rem', border: '1px solid rgba(0,229,255,0.1)', boxShadow: '4px 0 24px rgba(0,0,0,0.8)' }}>
+      <aside className={`glass-panel app-sidebar ${isOpen ? 'open' : ''}`} style={{ padding: '2rem 1rem', display: 'flex', flexDirection: 'column', height: '100vh', borderRight: '1px solid var(--border-color)' }}>
         <div className="flex-center sidebar-header" style={{ marginBottom: '3rem', gap: '0.75rem' }}>
           <div className="flex-center" style={{ background: 'var(--primary-accent)', borderRadius: '12px', width: '40px', height: '40px', boxShadow: '0 0 16px rgba(0, 229, 255, 0.4)' }}>
             <Wallet size={24} color="#000" />

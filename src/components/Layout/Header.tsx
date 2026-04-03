@@ -7,6 +7,10 @@ interface HeaderProps {
   onToggleSidebar?: () => void;
 }
 
+/**
+ * Application Header - Manages global actions, theme toggling, and RBAC role switching.
+ * Includes responsive menu trigger for mobile viewports.
+ */
 export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   const { role, theme, setRole, toggleTheme } = useFinance();
 
@@ -14,7 +18,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
     <header className="glass-panel flex-between" style={{ padding: '1rem 2rem', marginBottom: '2rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         {onToggleSidebar && (
-          <button onClick={onToggleSidebar} className="mobile-menu-btn" style={{ display: 'none', alignItems: 'center' }}>
+          <button onClick={onToggleSidebar} className="mobile-menu-btn" style={{ alignItems: 'center' }}>
             <Menu size={24} className="text-primary hoverable" />
           </button>
         )}

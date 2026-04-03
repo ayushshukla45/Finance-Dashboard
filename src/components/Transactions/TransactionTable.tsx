@@ -4,6 +4,10 @@ import { useTransactions } from '../../hooks/useTransactions';
 import { Search, Filter, Trash2, Edit, Frown } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 
+/**
+ * Transaction Ledger Component - Core data table for financial records.
+ * Supports filtering, searching, and role-based action controls.
+ */
 export const TransactionTable: React.FC<{ onEdit: (tx: any) => void }> = ({ onEdit }) => {
   const { role, deleteTransaction } = useFinance();
   const { searchTerm, setSearchTerm, filterType, setFilterType, filteredTransactions } = useTransactions();
@@ -18,7 +22,7 @@ export const TransactionTable: React.FC<{ onEdit: (tx: any) => void }> = ({ onEd
             <Search size={16} className="text-muted" style={{ position: 'absolute', left: '10px' }} />
             <input 
               type="text" 
-              placeholder="Search descriptor..." 
+              placeholder="Search description..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               style={{ paddingLeft: '2rem', width: '220px' }}
@@ -41,8 +45,8 @@ export const TransactionTable: React.FC<{ onEdit: (tx: any) => void }> = ({ onEd
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-secondary)' }}>
-                <th style={{ padding: '1rem', fontWeight: 500 }}>Timestamp</th>
-                <th style={{ padding: '1rem', fontWeight: 500 }}>Descriptor</th>
+                <th style={{ padding: '1rem', fontWeight: 500 }}>Date</th>
+                <th style={{ padding: '1rem', fontWeight: 500 }}>Description</th>
                 <th style={{ padding: '1rem', fontWeight: 500 }}>Category</th>
                 <th style={{ padding: '1rem', fontWeight: 500 }}>Amount</th>
                 {role === 'admin' && <th style={{ padding: '1rem', fontWeight: 500, textAlign: 'right' }}>Actions</th>}
@@ -78,8 +82,8 @@ export const TransactionTable: React.FC<{ onEdit: (tx: any) => void }> = ({ onEd
         ) : (
           <div style={{ padding: '4rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
              <Frown size={48} style={{ marginBottom: '1rem', opacity: 0.5 }} />
-             <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>No Data Available</h3>
-             <p>No transactions found for this search.</p>
+             <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>No matching transactions found.</h3>
+             <p>Try refining your search descriptor or filters.</p>
           </div>
         )}
       </div>

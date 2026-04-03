@@ -15,6 +15,7 @@ export interface FinanceState {
   transactions: Transaction[];
   role: Role;
   theme: Theme;
+  activeTab: string;
 }
 
 export type FinanceAction =
@@ -24,4 +25,5 @@ export type FinanceAction =
   | { type: 'SET_ROLE'; payload: Role }
   | { type: 'TOGGLE_THEME' }
   | { type: 'LOAD_DATA'; payload: FinanceState }
-  | { type: 'SHUFFLE_DATA' };
+  | { type: 'SHUFFLE_DATA' }
+  | { type: 'SET_ACTIVE_TAB'; payload: string };

@@ -18,10 +18,21 @@ FinDash is a professional-grade, interactive financial management dashboard desi
 
 ## 🛠️ Tech Stack
 - **Framework**: React 19 (Vite)
-- **Styling**: Tailwind CSS & Vanilla CSS (Custom Glassmorphism)
+- **Styling**: Tailwind CSS & Vanilla CSS (Custom Glassmorphic design)
 - **Icons**: Lucide-React
-- **Charts**: Recharts
-- **State Management**: React Context API + `useReducer`
+- **Charts**: Recharts (Optimized for zero-layout shifts)
+- **State Management**: Context API + `useReducer` for robust global orchestration
+
+## 🧠 Technical Approach
+
+### 1. Global State Management
+Instead of simple `useState` prop-drilling, the application uses a **Context API + `useReducer`** pattern. This ensures that the financial ledger, user roles, and even the active tab are synchronized across the entire application. State values are automatically persisted in `localStorage`, maintaining a consistent user experience during page refreshes.
+
+### 2. Physical RBAC (Role-Based Access Control)
+The project implements "Physical RBAC," where restricted elements (e.g., the "Inject Data" button or "Edit/Delete" actions) are not just hidden with CSS but are **completely unmounted from the DOM** when the user is in `Viewer` mode. This is achieved through strict conditional rendering using the global `role` state.
+
+### 3. Responsive Data Visualization
+A significant technical challenge was silencing Recharts warnings on mobile. This was resolved by implementing an `isMounted` state check and utilizing `fixed-aspect-ratio` wrappers alongside a `debounce={100}` on window resizing to ensure smooth rendering on high-DPI phone screens.
 
 ## 🚀 Getting Started
 
