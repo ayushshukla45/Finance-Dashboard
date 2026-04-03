@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* Default Light Theme */
+  --bg-color: #F8FAFC;
+  --bg-panel: rgba(255, 255, 255, 0.7);
+  --border-color: rgba(15, 23, 42, 0.08); /* Dark lines for light mode */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  
+  --primary-accent: #00B8CC; /* Deep Cyan */
+  --primary-hover: #008A99;
+  --success: #65A30D;
+  --danger: #DC2626;
+  --warning: #D97706;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 24px rgba(0, 184, 204, 0.2);
+  --mesh-color: rgba(0, 0, 0, 0.03); /* Subtle dark mesh */
+}
+
+.dark {
+  /* High-End Dark Theme */
+  --bg-color: #0A0A0B; /* Deep Charcoal */
+  --bg-panel: rgba(20, 20, 22, 0.4); /* Subdued glass */
+  --border-color: rgba(255, 255, 255, 0.05); /* Very low opacity borders */
+  --text-primary: #F8FAFC;
+  --text-secondary: #8B949E;
+  
+  --primary-accent: #00E5FF; /* Electric Cyan */
+  --primary-hover: #00B8CC;
+  --success: #BFFF00; /* Acid Green */
+  --danger: #FF2B4A;
+  --warning: #FFAB00;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.8);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 24px rgba(0, 229, 255, 0.25);
+  --mesh-color: rgba(255, 255, 255, 0.02); /* Subtle white mesh */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  
+  /* Geometric mesh gradient adapts to theme via var(--mesh-color) */
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(191, 255, 0, 0.02) 0%, transparent 40%),
+    linear-gradient(180deg, var(--mesh-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mesh-color) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
+  background-attachment: fixed;
+}
+
+/* Typography Enhancements */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* Emphasized Financial Data */
+.mono-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+  background: var(--bg-panel);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.glass-panel.hoverable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px var(--border-color);
+  border-color: var(--primary-accent);
+}
+
+.dark .glass-panel.hoverable:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Utility Layouts */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Staggered Fade-in Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.skeleton-pulse {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-anim {
+  animation: spin 1s linear infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+  border-radius: 4px;
+}
+
+/* Inputs & Buttons Base */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+  transition: all 0.2s ease;
+  color: inherit;
+}
+
+input, select {
+  font-family: inherit;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, select:focus {
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 1px var(--primary-accent);
+}
+
+/* Specific Component Stylings */
+.glowing-btn {
+  background: var(--primary-accent) !important;
+  color: #000 !important;
+  box-shadow: var(--shadow-glow) !important;
+  text-transform: uppercase;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.05em;
+}
+
+.glowing-btn:hover {
+  background: var(--primary-hover) !important;
+  box-shadow: 0 0 32px var(--primary-hover) !important;
+}
+
+.nav-item-btn {
+  padding: 0.75rem !important;
+  justify-content: center !important;
+  width: auto !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.nav-item-btn.active-nav {
+  color: var(--primary-accent) !important;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.4) !important;
+  background: rgba(0, 229, 255, 0.1) !important;
+}
+
+/* Transaction Table Hover Illuminations */
+.data-row {
+  border-bottom: 1px solid var(--border-color);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.data-row:hover {
+  background: rgba(0, 184, 204, 0.05); /* Works in both themes safely */
+  box-shadow: inset 3px 0 0 var(--primary-accent);
+}
+
+.dark .data-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: inset 2px 0 0 var(--primary-accent);
+}
+
+/* Semantic Colors Text Classes */
+.text-success { color: var(--success); }
+.text-danger { color: var(--danger); }
+.text-warning { color: var(--warning); }
+.text-primary { color: var(--primary-accent); text-shadow: 0 0 8px rgba(0, 184, 204, 0.2); }
+.dark .text-primary { text-shadow: 0 0 8px rgba(0, 229, 255, 0.3); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-secondary); opacity: 0.7; }
+
+/* Base App Layout Shell */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.app-sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 50;
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    background: var(--bg-color);
+    margin: 0 !important;
+    border-radius: 0 !important;
+    z-index: 100;
+  }
+
+  .app-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay.open {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 90;
+  }
+  
+  .main-content {
+    padding: 1rem;
+  }
+
+  .mobile-menu-btn {
+    display: flex !important; /* Always show since drawer is hidden */
+  }
+}
